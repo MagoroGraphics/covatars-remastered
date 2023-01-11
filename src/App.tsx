@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
+import PlayerCreation from './components/PlayerCreation';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>Covatars Game</h1>
+      <PlayerCreation/>
     </div>
   );
 }
