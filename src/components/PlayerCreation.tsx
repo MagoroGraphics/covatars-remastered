@@ -52,7 +52,6 @@ const PlayerCreation = () => {
       {step === "PlayerCreation" && (
         <div>
           <h3>Create Players</h3>
-          {/* <PlayerInput playerNum={1}/> */}
           <div>{renderPlayerInputs(numOfPlayers)}</div>
         </div>
       )}
