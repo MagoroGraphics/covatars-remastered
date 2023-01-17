@@ -5,7 +5,7 @@ import PlayerInput from "./PlayerInput";
 const PlayerCreation = () => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
-  const [players, setPlayers] = useState({});
+  const [players, setPlayers] = useState([]);
 
   const handleNumOfPlayersSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,10 +21,12 @@ const PlayerCreation = () => {
     setNumOfPlayers(target);
   };
 
-  const renderPlayerInputs = () => {
+  const renderPlayerInputs = (numOfPlayers : number) => {
+    const playerInputs = []
     for (let i = 0; i <= numOfPlayers; i++) {
-      return <PlayerInput key={i} playerNum={i} />;
+      playerInputs.push(<PlayerInput key={i} playerNum={i} />)
     }
+    return playerInputs
   };
   //Create an option to introduce number of players
   //Create a state to know which step the app is in
@@ -44,14 +46,14 @@ const PlayerCreation = () => {
             onChange={handleNumOfPlayersOnChange}
             required
           ></input>
-          <input type="submit"></input>
+          <button type="submit">Submit</button>
         </form>
       )}
       {step === "PlayerCreation" && (
         <div>
           <h3>Create Players</h3>
           {/* <PlayerInput playerNum={1}/> */}
-          {/* {renderPlayerInputs} */}
+          <div>{renderPlayerInputs(numOfPlayers)}</div>
         </div>
       )}
     </div>
