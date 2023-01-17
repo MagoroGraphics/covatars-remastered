@@ -36,7 +36,7 @@ const PlayerCreation = () => {
 
   return (
     <div>
-      <h1>Player Creation</h1>
+      
       {step === "PlayerNumberInput" && (
         <form onSubmit={handleNumOfPlayersSubmit}>
           <h2>How many players?</h2>
