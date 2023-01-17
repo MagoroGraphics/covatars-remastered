@@ -43,7 +43,7 @@ const PlayerCreation = () => {
       <button onClick={handleOnClickScoreboard}>Scoreboard</button>
       {step === "PlayerNumberInput" && (
         <form onSubmit={handleNumOfPlayersSubmit}>
-          <h2>How many players?</h2>
+          <h2>Insert number of players?</h2>
           <input
             name="numOfPlayers"
             type="numOfPlayers"
