@@ -29,8 +29,8 @@ const PlayerCreation = () => {
     return playerInputs
   };
 
-  const handleOnClickScoreboard = () => {
-    setStep("Scoreboard")
+  const handleOnClick = (step : string) : void => {
+    setStep(step)
   }
   //Create an option to introduce number of players
   //Create a state to know which step the app is in
@@ -40,7 +40,7 @@ const PlayerCreation = () => {
 
   return (
     <div>
-      <button onClick={handleOnClickScoreboard}>Scoreboard</button>
+      <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>
       {step === "PlayerNumberInput" && (
         <form onSubmit={handleNumOfPlayersSubmit}>
           <h2>Insert number of players?</h2>
@@ -63,6 +63,7 @@ const PlayerCreation = () => {
       {step === "Scoreboard" && (
         <div>
           <h3>No scores recorded</h3>
+          <button onClick={() => handleOnClick("PlayerNumberInput")}>Home</button>
         </div>
       )}
     </div>
