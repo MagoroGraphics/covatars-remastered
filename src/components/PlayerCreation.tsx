@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { ReactNode, SetStateAction, useState } from "react";
 import { Player } from "../types/PlayerType";
 import PlayerInput from "./PlayerInput";
 
-const PlayerCreation = () => {
+interface PlayerCreationProps {
+  setIsGameStarted: React.Dispatch<SetStateAction<boolean>>
+}
+
+const PlayerCreation = (props: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState([]);
@@ -40,7 +44,7 @@ const PlayerCreation = () => {
 
   return (
     <div>
-      <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>
+      {step !== "Game" && <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>}
       {step === "PlayerNumberInput" && (
         <form onSubmit={handleNumOfPlayersSubmit}>
           <h2>Insert number of players?</h2>
@@ -57,7 +61,7 @@ const PlayerCreation = () => {
         <div>
           <h3>Create Players</h3>
           <div>{renderPlayerInputs(numOfPlayers)}</div>
-          <div><button>Start</button></div>
+          <div><button onClick={()=> props.setIsGameStarted(true)}>Start</button></div>
         </div>
       )}
       {step === "Scoreboard" && (
