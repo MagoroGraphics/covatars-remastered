@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import PlayerCreation from './components/PlayerCreation';
+import Game from './containers/Game';
 
 
 function App() {
+
+  const [isGameStarted, setIsGameStarted] = useState(false)
+
   return (
     <div className="App">
-      <PlayerCreation/>
+      {!isGameStarted && <PlayerCreation setIsGameStarted={setIsGameStarted}/>}
+      {isGameStarted && <Game/>}
     </div>
   );
 }
