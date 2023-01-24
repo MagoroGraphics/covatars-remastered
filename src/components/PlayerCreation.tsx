@@ -14,10 +14,11 @@ const MainWrapper = styled.div`
   height: 100%;
   width: 100%;
   background-image: url(icons/background_tile.png);
+  color: yellow;
 `;
 
 const CovatarsLogo = styled.img`
-  width:15vw;
+  width:20vw;
   height: auto;
 `
 
