@@ -16,6 +16,11 @@ const MainWrapper = styled.div`
   background-image: url(icons/background_tile.png);
 `;
 
+const CovatarsLogo = styled.img`
+  width:15vw;
+  height: auto;
+`
+
 const PlayerCreation = (props: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
@@ -54,6 +59,7 @@ const PlayerCreation = (props: PlayerCreationProps) => {
 
   return (
     <MainWrapper>
+      <CovatarsLogo src="icons/covatars_logo.png"/>
       {step !== "Game" && (
         <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>
       )}
