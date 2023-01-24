@@ -1,10 +1,20 @@
 import React, { ReactNode, SetStateAction, useState } from "react";
 import { Player } from "../types/PlayerType";
 import PlayerInput from "./PlayerInput";
+import styled from "styled-components";
 
 interface PlayerCreationProps {
-  setIsGameStarted: React.Dispatch<SetStateAction<boolean>>
+  setIsGameStarted: React.Dispatch<SetStateAction<boolean>>;
 }
+
+const MainWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url(icons/background_tile.png);
+`;
 
 const PlayerCreation = (props: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
@@ -25,17 +35,17 @@ const PlayerCreation = (props: PlayerCreationProps) => {
     setNumOfPlayers(target);
   };
 
-  const renderPlayerInputs = (numOfPlayers : number) => {
-    const playerInputs = []
+  const renderPlayerInputs = (numOfPlayers: number) => {
+    const playerInputs = [];
     for (let i = 0; i <= numOfPlayers; i++) {
-      playerInputs.push(<PlayerInput key={i} playerNum={i} />)
+      playerInputs.push(<PlayerInput key={i} playerNum={i} />);
     }
-    return playerInputs
+    return playerInputs;
   };
 
-  const handleOnClick = (step : string) : void => {
-    setStep(step)
-  }
+  const handleOnClick = (step: string): void => {
+    setStep(step);
+  };
   //Create an option to introduce number of players
   //Create a state to know which step the app is in
   //Based on number of players, display input for player names
@@ -43,8 +53,10 @@ const PlayerCreation = (props: PlayerCreationProps) => {
   //Post players to database
 
   return (
-    <div>
-      {step !== "Game" && <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>}
+    <MainWrapper>
+      {step !== "Game" && (
+        <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>
+      )}
       {step === "PlayerNumberInput" && (
         <form onSubmit={handleNumOfPlayersSubmit}>
           <h2>Insert number of players?</h2>
@@ -61,16 +73,20 @@ const PlayerCreation = (props: PlayerCreationProps) => {
         <div>
           <h3>Create Players</h3>
           <div>{renderPlayerInputs(numOfPlayers)}</div>
-          <div><button onClick={()=> props.setIsGameStarted(true)}>Start</button></div>
+          <div>
+            <button onClick={() => props.setIsGameStarted(true)}>Start</button>
+          </div>
         </div>
       )}
       {step === "Scoreboard" && (
         <div>
           <h3>No scores recorded</h3>
-          <button onClick={() => handleOnClick("PlayerNumberInput")}>Home</button>
+          <button onClick={() => handleOnClick("PlayerNumberInput")}>
+            Home
+          </button>
         </div>
       )}
-    </div>
+    </MainWrapper>
   );
 };
 
