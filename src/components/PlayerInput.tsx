@@ -13,10 +13,13 @@ const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(target)
 }
 
+const handleSubmit = () => {
+    
+}
 
 return (
     <form>
-        <label>Player {props.playerNum}</label>
+        <label>Player {props.playerNum+1}</label>
         <input onChange={handleOnChange}>
         </input>
         <button type="submit">Create</button>

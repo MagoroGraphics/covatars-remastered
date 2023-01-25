@@ -38,7 +38,7 @@ const PlayerCreation = (props: PlayerCreationProps) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const target: number = +e.target.value;
-    setNumOfPlayers(target);
+    setNumOfPlayers(target-1);
   };
 
   const renderPlayerInputs = (numOfPlayers: number) => {
