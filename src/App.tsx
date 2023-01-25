@@ -14,6 +14,7 @@ function App() {
   height: 100%;
   width: 100%;
   background-image: url(icons/background_tile.png);
+  color: yellow;
   ` 
   const [isGameStarted, setIsGameStarted] = useState(false)
 
