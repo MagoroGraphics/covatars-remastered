@@ -1,28 +1,32 @@
 import { Player } from "../types/PlayerType"
-import React, {useState} from "react"
+import React, {useState, SetStateAction} from "react"
 
 interface PlayerInputProps {
     playerNum: number
-    // setPlayers: React.SetStateAction<[]>
+    players: string[]
+    setPlayers: (players: string[]) => void
 }
 
-const PlayerInput = (props:PlayerInputProps) => {
+const PlayerInput = ({playerNum, players, setPlayers}:PlayerInputProps) => {
     const [playerName, setPlayerName] = useState("")
 const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target: string = e.target.value;
     setPlayerName(target)
 }
 
-const handleSubmit = () => {
-    
+const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    let playerList = [...players]
+    playerList.push(playerName)
+    setPlayers(playerList)
 }
 
 return (
     <form>
-        <label>Player {props.playerNum+1}</label>
+        <label>Player {playerNum+1}</label>
         <input onChange={handleOnChange}>
         </input>
-        <button type="submit">Create</button>
+        <button onClick={()=>handleSubmit}>Create</button>
     </form>
 )
 }

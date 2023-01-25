@@ -25,7 +25,7 @@ const CovatarsLogo = styled.img`
 const PlayerCreation = (props: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<string[]>([]);
 
   const handleNumOfPlayersSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const PlayerCreation = (props: PlayerCreationProps) => {
   const renderPlayerInputs = (numOfPlayers: number) => {
     const playerInputs = [];
     for (let i = 0; i <= numOfPlayers; i++) {
-      playerInputs.push(<PlayerInput key={i} playerNum={i} />);
+      playerInputs.push(<PlayerInput key={i} playerNum={i} players={players} setPlayers={setPlayers} />);
     }
     return playerInputs;
   };
