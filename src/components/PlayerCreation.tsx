@@ -4,7 +4,8 @@ import PlayerInput from "./PlayerInput";
 import styled from "styled-components";
 
 //Create a state with a players object
-  //Post players to database
+//Change players state from array of strings to array of player objects using interface
+//Post players to database
 
 interface PlayerCreationProps {
   setIsGameStarted: React.Dispatch<SetStateAction<boolean>>;
