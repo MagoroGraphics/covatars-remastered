@@ -1,6 +1,8 @@
 import { Player } from "../types/PlayerType";
 import React, { useState, SetStateAction } from "react";
 
+//prevent possibility of resubmitting the same player name
+
 interface PlayerInputProps {
   playerNum: number;
   players: string[];
