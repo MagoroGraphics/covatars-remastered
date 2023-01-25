@@ -1,4 +1,5 @@
 import { Player } from "../types/PlayerType"
+import React, {useState} from "react"
 
 interface PlayerInputProps {
     playerNum: number
@@ -6,10 +7,12 @@ interface PlayerInputProps {
 }
 
 const PlayerInput = (props:PlayerInputProps) => {
-    
-const handleOnChange = () => {
-
+    const [playerName, setPlayerName] = useState("")
+const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target: string = e.target.value;
+    setPlayerName(target)
 }
+
 
 return (
     <form>
