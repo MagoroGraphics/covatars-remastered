@@ -3,6 +3,9 @@ import { Player } from "../types/PlayerType";
 import PlayerInput from "./PlayerInput";
 import styled from "styled-components";
 
+//Create a state with a players object
+  //Post players to database
+
 interface PlayerCreationProps {
   setIsGameStarted: React.Dispatch<SetStateAction<boolean>>;
 }
@@ -52,11 +55,7 @@ const PlayerCreation = (props: PlayerCreationProps) => {
   const handleOnClick = (step: string): void => {
     setStep(step);
   };
-  //Create an option to introduce number of players
-  //Create a state to know which step the app is in
-  //Based on number of players, display input for player names
-  //Create a state with a players object
-  //Post players to database
+  
 
   return (
     <MainWrapper>
