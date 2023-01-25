@@ -1,7 +1,6 @@
 import { Player } from "../types/PlayerType";
 import React, { useState, SetStateAction } from "react";
 
-//prevent possibility of resubmitting the same player name
 
 interface PlayerInputProps {
   playerNum: number;
@@ -11,7 +10,7 @@ interface PlayerInputProps {
 
 const PlayerInput = ({ playerNum, players, setPlayers }: PlayerInputProps) => {
   const [playerName, setPlayerName] = useState("");
-const [isCreated, setIsCreated] = useState(false)
+  const [isCreated, setIsCreated] = useState(false);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target: string = e.target.value;
@@ -22,16 +21,22 @@ const [isCreated, setIsCreated] = useState(false)
     e.preventDefault();
     let playerList = [...players];
     playerList.push(playerName);
-    setIsCreated(true)
+    setIsCreated(true);
     return setPlayers(playerList);
   };
 
   return (
-    <form>
-      <label>Player {playerNum + 1}</label>
-      <input onChange={handleOnChange}></input>
-      {!isCreated && <button onClick={handleSubmit}>Create</button>}
-    </form>
+    <>
+      {!isCreated ? (
+        <form>
+          <label>Player {playerNum + 1}</label>
+          <input onChange={handleOnChange}></input>
+          <button onClick={handleSubmit}>Create</button>
+        </form>
+      ) : (
+        <h3>{playerName}</h3>
+      )}
+    </>
   );
 };
 
