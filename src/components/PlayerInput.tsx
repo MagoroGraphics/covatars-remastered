@@ -11,6 +11,8 @@ interface PlayerInputProps {
 
 const PlayerInput = ({ playerNum, players, setPlayers }: PlayerInputProps) => {
   const [playerName, setPlayerName] = useState("");
+const [isCreated, setIsCreated] = useState(false)
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target: string = e.target.value;
     setPlayerName(target);
@@ -20,6 +22,7 @@ const PlayerInput = ({ playerNum, players, setPlayers }: PlayerInputProps) => {
     e.preventDefault();
     let playerList = [...players];
     playerList.push(playerName);
+    setIsCreated(true)
     return setPlayers(playerList);
   };
 
@@ -27,7 +30,7 @@ const PlayerInput = ({ playerNum, players, setPlayers }: PlayerInputProps) => {
     <form>
       <label>Player {playerNum + 1}</label>
       <input onChange={handleOnChange}></input>
-      <button onClick={handleSubmit}>Create</button>
+      {!isCreated && <button onClick={handleSubmit}>Create</button>}
     </form>
   );
 };
