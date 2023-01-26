@@ -1,5 +1,6 @@
 import { Player } from "../types/PlayerType";
 import React, { useState, SetStateAction } from "react";
+import Button from "./Button";
 
 
 interface PlayerInputProps {
@@ -31,7 +32,7 @@ const PlayerInput = ({ playerNum, players, setPlayers }: PlayerInputProps) => {
         <form>
           <label>Player {playerNum + 1}</label>
           <input onChange={handleOnChange}></input>
-          <button onClick={handleSubmit}>Create</button>
+          <Button onClick={handleSubmit} text={"Create"}/>
         </form>
       ) : (
         <h3>{playerName}</h3>
