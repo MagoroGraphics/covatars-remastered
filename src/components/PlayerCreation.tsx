@@ -2,6 +2,7 @@ import React, { ReactNode, SetStateAction, useState } from "react";
 import { Player } from "../types/PlayerType";
 import PlayerInput from "./PlayerInput";
 import styled from "styled-components";
+import InstructionsButton from "./InstructionsButton";
 
 //Create a state with a players object
 //Change players state from array of strings to array of player objects using interface
@@ -59,6 +60,9 @@ const PlayerCreation = (props: PlayerCreationProps) => {
 
   return (
     <MainWrapper>
+      <section>
+        <InstructionsButton/>
+      </section>
       <CovatarsLogo src="icons/covatars_logo.png"/>
       {step !== "Game" && (
         <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>
