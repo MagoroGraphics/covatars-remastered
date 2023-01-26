@@ -12,6 +12,7 @@ const ButtonStyled = styled.button`
   font-weight: bold;
   border-radius: 2vh;
   padding:1vh;
+  cursor:pointer;
 `;
 
 const Button = ({ onClick, text }: PropTypes) => {
