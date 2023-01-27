@@ -26,7 +26,7 @@ const CovatarsLogo = styled.img`
   height: auto;
 `
 
-const PlayerCreation = (props: PlayerCreationProps) => {
+const PlayerCreation = ({setIsGameStarted}: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<string[]>([]);
@@ -69,7 +69,7 @@ const PlayerCreation = (props: PlayerCreationProps) => {
       )}
       {step === "PlayerNumberInput" && (
         <form onSubmit={handleNumOfPlayersSubmit}>
-          <h2>Insert number of players?</h2>
+          <h2>Insert number of players</h2>
           <input
             name="numOfPlayers"
             type="numOfPlayers"
@@ -84,7 +84,7 @@ const PlayerCreation = (props: PlayerCreationProps) => {
           <h3>Create Players</h3>
           <div>{renderPlayerInputs(numOfPlayers)}</div>
           <div>
-            <button onClick={() => props.setIsGameStarted(true)}>Start</button>
+            <button onClick={() => setIsGameStarted(true)}>Start</button>
           </div>
         </div>
       )}
