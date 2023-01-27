@@ -1,6 +1,9 @@
 import { Player } from "../types/PlayerType";
 import React, { useState, SetStateAction } from "react";
 import Button from "./Button";
+import styled from "styled-components";
+
+
 
 
 interface PlayerInputProps {
@@ -10,6 +13,12 @@ interface PlayerInputProps {
 }
 
 const PlayerInput = ({ playerNum, players, setPlayers }: PlayerInputProps) => {
+
+const StyledInput = styled.input`
+  border-radius: 1vh;
+  box-shadow: 5px;
+`
+
   const [playerName, setPlayerName] = useState("");
   const [isCreated, setIsCreated] = useState(false);
 
@@ -31,7 +40,7 @@ const PlayerInput = ({ playerNum, players, setPlayers }: PlayerInputProps) => {
       {!isCreated ? (
         <form>
           <label>Player {playerNum + 1}</label>
-          <input onChange={handleOnChange}></input>
+          <StyledInput onChange={handleOnChange}></StyledInput>
           <Button onClick={handleSubmit} text={"Create"}/>
         </form>
       ) : (
