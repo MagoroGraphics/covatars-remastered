@@ -5,6 +5,7 @@ import Game from './containers/Game';
 import styled from 'styled-components';
 
 
+
 function App() {
 
   const MainAppWrapper = styled.div`
@@ -16,7 +17,13 @@ function App() {
   background-image: url(icons/background_tile.png);
   color: yellow;
   ` 
+
   const [isGameStarted, setIsGameStarted] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
 
   return (
     <MainAppWrapper className="App">
