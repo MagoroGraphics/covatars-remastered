@@ -3,9 +3,6 @@ import React, { useState, SetStateAction } from "react";
 import Button from "./Button";
 import styled from "styled-components";
 
-
-
-
 interface PlayerInputProps {
   playerNum: number;
   players: string[];
