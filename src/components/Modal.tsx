@@ -26,6 +26,7 @@ const ModalBox = styled.div`
   color:black;
   border-radius: 25px;
   padding:50px;
+  overflow: scroll;
 `;
 
 const Modal = ({ isOpen, onClose, children }:ModalProps) => {
