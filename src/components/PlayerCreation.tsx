@@ -17,7 +17,6 @@ const MainWrapper = styled.div`
   left: 0;
   height: 100%;
   width: 100%;
-  background-image: url(icons/background_tile.png);
 `;
 
 const CovatarsLogo = styled.img`

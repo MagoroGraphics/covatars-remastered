@@ -10,11 +10,11 @@ const InstructionsButtonStyled = styled.button`
   height: auto;
   width: auto;
   cursor: pointer;
-  background-color:rgba(0,0,0,0);
-  border:none;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
   font-weight: bold;
-  font-size:2vh;
-  font-family: 'Lobster';
+  font-size: 2vh;
+  font-family: "Lobster";
   position: absolute;
   top: 0;
   right: 0;
@@ -35,15 +35,21 @@ const MainContainer = () => {
   return (
     <>
       <section>
-        <InstructionsButtonStyled onClick={toggleInstructionsModal}><img src="icons/instructions_icon.svg" width="45px"/>Instructions</InstructionsButtonStyled>
+        <InstructionsButtonStyled onClick={toggleInstructionsModal}>
+          <img src="icons/instructions_icon.svg" width="45px" />
+          Instructions
+        </InstructionsButtonStyled>
       </section>
       {isModalOpen && (
         <Modal toggleInstructionsModal={toggleInstructionsModal}>
           <Instructions />
         </Modal>
       )}
-      {/* {!isGameStarted && <PlayerCreation setIsGameStarted={setIsGameStarted} />} */}
-      {/* {isGameStarted && <Game />} */}
+      {!isGameStarted ? (
+        <PlayerCreation setIsGameStarted={setIsGameStarted} />
+      ) : (
+        <Game />
+      )}
     </>
   );
 };
