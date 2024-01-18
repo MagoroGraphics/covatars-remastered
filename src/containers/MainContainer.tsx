@@ -11,11 +11,12 @@ const MainContainer = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   return (
     <>
-      <Modal isOpen={isModalOpen} onClose={toggleModal}>
+      {isModalOpen && <Modal isOpen={isModalOpen} onClose={toggleModal}>
         <Instructions />
-      </Modal>
+      </Modal>}
       {!isGameStarted && <PlayerCreation setIsGameStarted={setIsGameStarted} />}
       {isGameStarted && <Game />}
     </>
