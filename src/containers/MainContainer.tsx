@@ -31,7 +31,7 @@ const MainContainer = () => {
         <InstructionsButtonStyled onClick={toggleInstructionsModal}>Instructions</InstructionsButtonStyled>
       </section>
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={toggleInstructionsModal}>
+        <Modal toggleInstructionsModal={toggleInstructionsModal}>
           <Instructions />
         </Modal>
       )}
