@@ -12,19 +12,10 @@ interface PlayerCreationProps {
 }
 
 const MainWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
   width: 100%;
 `;
 
-const CovatarsLogo = styled.img`
-  width:20vw;
-  height: auto;
-`
-
-const PlayerCreation = ({setIsGameStarted}: PlayerCreationProps) => {
+const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<string[]>([]);
@@ -40,13 +31,20 @@ const PlayerCreation = ({setIsGameStarted}: PlayerCreationProps) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const target: number = +e.target.value;
-    setNumOfPlayers(target-1);
+    setNumOfPlayers(target - 1);
   };
 
   const renderPlayerInputs = (numOfPlayers: number) => {
     const playerInputs = [];
     for (let i = 0; i <= numOfPlayers; i++) {
-      playerInputs.push(<PlayerInput key={i} playerNum={i} players={players} setPlayers={setPlayers} />);
+      playerInputs.push(
+        <PlayerInput
+          key={i}
+          playerNum={i}
+          players={players}
+          setPlayers={setPlayers}
+        />
+      );
     }
     return playerInputs;
   };
@@ -54,14 +52,9 @@ const PlayerCreation = ({setIsGameStarted}: PlayerCreationProps) => {
   const handleOnClick = (step: string): void => {
     setStep(step);
   };
-  
 
   return (
     <MainWrapper>
-      <CovatarsLogo src="icons/covatars_logo.png"/>
-      {step !== "Game" && (
-        <button onClick={() => handleOnClick("Scoreboard")}>Scoreboard</button>
-      )}
       {step === "PlayerNumberInput" && (
         <form onSubmit={handleNumOfPlayersSubmit}>
           <h2>Insert number of players</h2>

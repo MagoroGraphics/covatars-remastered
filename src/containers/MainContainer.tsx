@@ -15,13 +15,31 @@ const InstructionsButtonStyled = styled.button`
   font-weight: bold;
   font-size: 2vh;
   font-family: "Lobster";
-  position: absolute;
-  top: 0;
-  right: 0;
   margin: 12px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const ScoreboardButton = styled.button`
+  color: yellow;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  font-weight: bold;
+  font-size: 2vh;
+  font-family: "Lobster";
+`;
+
+const CovatarsLogo = styled.img`
+  width: 5vh;
+  max-width: 5vw;
+  height: 5vh;
 `;
 
 const MainContainer = () => {
@@ -34,12 +52,14 @@ const MainContainer = () => {
 
   return (
     <>
-      <section>
+      <Header>
+        <ScoreboardButton>Scoreboard</ScoreboardButton>
+        <CovatarsLogo src="icons/covatars_logo.png" />
         <InstructionsButtonStyled onClick={toggleInstructionsModal}>
           <img src="icons/instructions_icon.svg" width="45px" />
           Instructions
         </InstructionsButtonStyled>
-      </section>
+      </Header>
       {isModalOpen && (
         <Modal toggleInstructionsModal={toggleInstructionsModal}>
           <Instructions />
