@@ -32,12 +32,26 @@ const PlayerNumberButton = styled.img`
   min-width: 150px;
 `;
 
+const StartButton = styled.button`
+  color: purple;
+  background-color: yellow;
+  border-radius: 25rem;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  font-size: 2vh;
+  font-family: "Lobster";
+  margin: 12px 36px;
+  padding: 10px 20px;
+`;
+
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<string[]>([]);
 
   const submitNumberOfPlayers = (number: number): void => {
+    setNumOfPlayers(number)
     console.log("Number of players", number);
   };
 
@@ -56,9 +70,9 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     return playerInputs;
   };
 
-  const handleOnClick = (step: string): void => {
-    setStep(step);
-  };
+  const handleStartGame = () => {
+    setIsGameStarted(true)
+  }
 
   return (
     <MainWrapper>
@@ -79,24 +93,8 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
               onClick={() => submitNumberOfPlayers(4)}
             />
           </PlayerNumberWrapper>
+          <StartButton onClick={handleStartGame}>Start</StartButton>
         </PlayerSelectionWrapper>
-      )}
-      {step === "PlayerCreation" && (
-        <div>
-          <h3>Create Players</h3>
-          <div>{renderPlayerInputs(numOfPlayers)}</div>
-          <div>
-            <button onClick={() => setIsGameStarted(true)}>Start</button>
-          </div>
-        </div>
-      )}
-      {step === "Scoreboard" && (
-        <div>
-          <h3>No scores recorded</h3>
-          <button onClick={() => handleOnClick("PlayerNumberInput")}>
-            Home
-          </button>
-        </div>
       )}
     </MainWrapper>
   );
