@@ -37,9 +37,7 @@ const ScoreboardButton = styled.button`
 `;
 
 const CovatarsLogo = styled.img`
-  width: 5vh;
-  max-width: 5vw;
-  height: 5vh;
+  max-width: 50vw;
 `;
 
 const MainContainer = () => {
@@ -54,7 +52,7 @@ const MainContainer = () => {
     <>
       <Header>
         <ScoreboardButton>Scoreboard</ScoreboardButton>
-        <CovatarsLogo src="icons/covatars_logo.png" />
+        <CovatarsLogo src="icons/covatars-logo.svg"/>
         <InstructionsButtonStyled onClick={toggleInstructionsModal}>
           <img src="icons/instructions_icon.svg" width="45px" />
           Instructions
