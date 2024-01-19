@@ -24,6 +24,7 @@ const InstructionsButtonStyled = styled.button`
 const Header = styled.div`
   display: flex;
   justify-content: space-around;
+  margin: 24px 0px;
 `;
 
 const ScoreboardButton = styled.button`
