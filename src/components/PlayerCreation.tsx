@@ -15,23 +15,30 @@ const MainWrapper = styled.div`
   width: 100%;
 `;
 
+const PlayerSelectionWrapper = styled.div`
+  margin: auto;
+  width: 50%;
+  text-align: center;
+`;
+
+const PlayerNumberWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PlayerNumberButton = styled.img`
+  margin: 20px 20px;
+  cursor: pointer;
+  min-width: 150px;
+`;
+
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<string[]>([]);
 
-  const handleNumOfPlayersSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    return numOfPlayers >= 2 && numOfPlayers <= 8
-      ? setStep("PlayerCreation")
-      : null;
-  };
-
-  const handleNumOfPlayersOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const target: number = +e.target.value;
-    setNumOfPlayers(target - 1);
+  const submitNumberOfPlayers = (number: number): void => {
+    console.log("Number of players", number);
   };
 
   const renderPlayerInputs = (numOfPlayers: number) => {
@@ -56,16 +63,23 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   return (
     <MainWrapper>
       {step === "PlayerNumberInput" && (
-        <form onSubmit={handleNumOfPlayersSubmit}>
-          <h2>Insert number of players</h2>
-          <input
-            name="numOfPlayers"
-            type="numOfPlayers"
-            onChange={handleNumOfPlayersOnChange}
-            required
-          ></input>
-          <button type="submit">Submit</button>
-        </form>
+        <PlayerSelectionWrapper>
+          <h2>How many players?</h2>
+          <PlayerNumberWrapper>
+            <PlayerNumberButton
+              src="icons/2-players.svg"
+              onClick={() => submitNumberOfPlayers(2)}
+            />
+            <PlayerNumberButton
+              src="icons/3-players.svg"
+              onClick={() => submitNumberOfPlayers(3)}
+            />
+            <PlayerNumberButton
+              src="icons/4-players.svg"
+              onClick={() => submitNumberOfPlayers(4)}
+            />
+          </PlayerNumberWrapper>
+        </PlayerSelectionWrapper>
       )}
       {step === "PlayerCreation" && (
         <div>
