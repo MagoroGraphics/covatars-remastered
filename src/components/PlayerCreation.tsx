@@ -1,6 +1,4 @@
-import React, { ReactNode, SetStateAction, useState } from "react";
-import { Player } from "../types/PlayerType";
-import PlayerInput from "./PlayerInput";
+import React, { SetStateAction, useState } from "react";
 import styled from "styled-components";
 
 //Create a state with a players object
@@ -63,36 +61,34 @@ const StartButton = styled.button`
   padding: 10px 20px;
 `;
 
+const PlayerInput= styled.input`
+  
+`
+
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<string[]>([]);
 
-  const submitNumberOfPlayers = (number: number): void => {
-    setNumOfPlayers(number);
-    console.log("Number of players", number);
+  const submitPlayerDetails = (): void => {
+    console.log("Send to backend", players)
   };
 
   const renderPlayerInputs = (numOfPlayers: number) => {
-    const playerInputs = [];
-    for (let i = 0; i <= numOfPlayers; i++) {
-      playerInputs.push(
-        <PlayerInput
-          key={i}
-          playerNum={i}
-          players={players}
-          setPlayers={setPlayers}
-        />
-      );
+    let playerInputs: React.ReactElement[]= []
+    for (let i = 1; i <= numOfPlayers; i++) {
+        playerInputs.push(<PlayerInput placeholder={`Player ${i} name`} value={i} key={i}/>)
     }
-    return playerInputs;
+    return playerInputs
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumOfPlayers(parseInt(event.target.value));
+    renderPlayerInputs(parseInt(event.target.value))
   };
 
   const handleStartGame = () => {
+    submitPlayerDetails()
     setIsGameStarted(true);
   };
 
@@ -101,7 +97,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
       {step === "PlayerNumberInput" && (
         <PlayerSelectionWrapper>
           <h2>How many players?</h2>
-          <PlayerNumberWrapper>
+          <PlayerNumberWrapper onSubmit={submitPlayerDetails}>
             <label>
               <input
                 type="radio"
@@ -130,6 +126,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
               <PlayerNumberButton src="icons/4-players.svg" />
             </label>
           </PlayerNumberWrapper>
+          {numOfPlayers > 0 ? renderPlayerInputs(numOfPlayers) : null}
           <StartButton onClick={handleStartGame}>Start</StartButton>
         </PlayerSelectionWrapper>
       )}
