@@ -20,13 +20,8 @@ const PlayerSelectionWrapper = styled.div`
   width: 50%;
   text-align: center;
   & h2 {
-    font-size:5vw;
+    font-size: 5vw;
   }
-`;
-
-const PlayerNumberWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 const PlayerNumberButton = styled.img`
@@ -36,11 +31,22 @@ const PlayerNumberButton = styled.img`
   background-color: #ffffff30;
   border-radius: 2vh;
   padding: 10px;
-  &:hover{
+  &:hover {
     background-color: #ffffff77;
   }
-  &:selection{
-    background-color: #fffcc87e;
+  &:checked {
+    background-color: #fff200f0;
+  }
+`;
+
+const PlayerNumberWrapper = styled.form`
+  display: flex;
+  justify-content: space-between;
+  & input {
+    display: none;
+    &:checked + ${PlayerNumberButton} {
+      background-color: #fff200d9;
+    }
   }
 `;
 
@@ -63,7 +69,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [players, setPlayers] = useState<string[]>([]);
 
   const submitNumberOfPlayers = (number: number): void => {
-    setNumOfPlayers(number)
+    setNumOfPlayers(number);
     console.log("Number of players", number);
   };
 
@@ -82,9 +88,13 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     return playerInputs;
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNumOfPlayers(parseInt(event.target.value));
+  };
+
   const handleStartGame = () => {
-    setIsGameStarted(true)
-  }
+    setIsGameStarted(true);
+  };
 
   return (
     <MainWrapper>
@@ -92,18 +102,33 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
         <PlayerSelectionWrapper>
           <h2>How many players?</h2>
           <PlayerNumberWrapper>
-            <PlayerNumberButton
-              src="icons/2-players.svg"
-              onClick={() => submitNumberOfPlayers(2)}
-            />
-            <PlayerNumberButton
-              src="icons/3-players.svg"
-              onClick={() => submitNumberOfPlayers(3)}
-            />
-            <PlayerNumberButton
-              src="icons/4-players.svg"
-              onClick={() => submitNumberOfPlayers(4)}
-            />
+            <label>
+              <input
+                type="radio"
+                name="numOfPlayers"
+                value={2}
+                onChange={handleInputChange}
+              />
+              <PlayerNumberButton src="icons/2-players.svg" />
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="numOfPlayers"
+                value={3}
+                onChange={handleInputChange}
+              />
+              <PlayerNumberButton src="icons/3-players.svg" />
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="numOfPlayers"
+                value={4}
+                onChange={handleInputChange}
+              />
+              <PlayerNumberButton src="icons/4-players.svg" />
+            </label>
           </PlayerNumberWrapper>
           <StartButton onClick={handleStartGame}>Start</StartButton>
         </PlayerSelectionWrapper>
