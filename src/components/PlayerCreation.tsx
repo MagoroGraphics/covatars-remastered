@@ -19,6 +19,9 @@ const PlayerSelectionWrapper = styled.div`
   margin: auto;
   width: 50%;
   text-align: center;
+  & h2 {
+    font-size:5vw;
+  }
 `;
 
 const PlayerNumberWrapper = styled.div`
