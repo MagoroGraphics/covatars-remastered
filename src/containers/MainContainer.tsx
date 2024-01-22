@@ -52,8 +52,12 @@ const MainContainer = () => {
   return (
     <>
       <Header>
-        <ScoreboardButton>Scoreboard</ScoreboardButton>
-        <CovatarsLogo src="icons/covatars-logo.svg"/>
+        {!isGameStarted && (
+          <>
+            <ScoreboardButton>Scoreboard</ScoreboardButton>
+            <CovatarsLogo src="icons/covatars-logo.svg" />
+          </>
+        )}
         <InstructionsButtonStyled onClick={toggleInstructionsModal}>
           <img src="icons/instructions_icon.svg" width="45px" />
           Instructions
