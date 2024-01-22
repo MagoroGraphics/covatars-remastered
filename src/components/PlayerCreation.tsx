@@ -51,7 +51,7 @@ const StartButton = styled.button`
   cursor: pointer;
   border: none;
   font-weight: bold;
-  font-size: 2vh;
+  font-size: 3vh;
   font-family: "Lobster";
   margin: 12px 36px;
   padding: 10px 20px;
