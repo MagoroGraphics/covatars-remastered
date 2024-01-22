@@ -30,6 +30,15 @@ const PlayerNumberButton = styled.img`
   margin: 20px 20px;
   cursor: pointer;
   min-width: 150px;
+  background-color: #ffffff30;
+  border-radius: 2vh;
+  padding: 10px;
+  &:hover{
+    background-color: #ffffff77;
+  }
+  &:selection{
+    background-color: #fffcc87e;
+  }
 `;
 
 const StartButton = styled.button`
