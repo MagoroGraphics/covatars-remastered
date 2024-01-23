@@ -41,12 +41,17 @@ const CovatarsLogo = styled.img`
   max-width: 50vw;
 `;
 
+const Scoreboard = styled.div`
+  
+`
+
 const MainContainer = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<string | null>(null);
 
-  const toggleInstructionsModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const toggleModal = (modal: string | null) => {
+    modal ? setIsModalOpen(modal) : setIsModalOpen(null)
+
   };
 
   return (
@@ -54,18 +59,19 @@ const MainContainer = () => {
       <Header>
         {!isGameStarted && (
           <>
-            <ScoreboardButton>Scoreboard</ScoreboardButton>
+            <ScoreboardButton onClick={() => toggleModal("scoreboard")}>Scoreboard</ScoreboardButton>
             <CovatarsLogo src="icons/covatars-logo.svg" />
           </>
         )}
-        <InstructionsButtonStyled onClick={toggleInstructionsModal}>
+        <InstructionsButtonStyled onClick={() => toggleModal("instructions")}>
           <img src="icons/instructions_icon.svg" width="45px" />
           Instructions
         </InstructionsButtonStyled>
       </Header>
       {isModalOpen && (
-        <Modal toggleInstructionsModal={toggleInstructionsModal}>
-          <Instructions />
+        <Modal toggleModal={toggleModal}>
+          {isModalOpen === "instructions" && <Instructions />}
+          {isModalOpen === "scoreboard" && <Scoreboard/>}
         </Modal>
       )}
       {!isGameStarted ? (

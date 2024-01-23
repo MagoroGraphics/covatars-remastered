@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface ModalProps {
-  toggleInstructionsModal: () => void;
+  toggleModal: (modal: string | null) => void;
   children: React.ReactNode;
 }
 
@@ -48,12 +48,12 @@ const ModalBox = styled.div`
   overflow-y: scroll;
 `;
 
-const Modal = ({ toggleInstructionsModal, children }: ModalProps) => {
+const Modal = ({ toggleModal, children }: ModalProps) => {
   return (
     <>
       <ModalOverlay />
       <ModalBox>
-        <CloseButton onClick={toggleInstructionsModal}>Close</CloseButton>
+        <CloseButton onClick={() => toggleModal(null)}>Close</CloseButton>
         {children}
       </ModalBox>
     </>
