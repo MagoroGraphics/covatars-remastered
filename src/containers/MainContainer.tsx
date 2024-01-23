@@ -4,6 +4,7 @@ import PlayerCreation from "../components/PlayerCreation";
 import Game from "./Game";
 import Instructions from "../components/Instructions";
 import styled from "styled-components";
+import Scoreboard from "../components/Scoreboard";
 
 const InstructionsButtonStyled = styled.button`
   color: yellow;
@@ -40,10 +41,6 @@ const ScoreboardButton = styled.button`
 const CovatarsLogo = styled.img`
   max-width: 50vw;
 `;
-
-const Scoreboard = styled.div`
-  
-`
 
 const MainContainer = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
