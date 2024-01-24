@@ -61,9 +61,19 @@ const StartButton = styled.button`
   padding: 10px 20px;
 `;
 
-const PlayerInput= styled.input`
-  
-`
+const PlayerInput = styled.input`
+  margin: 20px 10px;
+  padding: 15px;
+  border-radius: 2vh;
+  color: #6e6e6e;
+  font-weight: bold;
+  font-size: 1rem;
+`;
+
+const NameInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
@@ -71,24 +81,26 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [players, setPlayers] = useState<string[]>([]);
 
   const submitPlayerDetails = (): void => {
-    console.log("Send to backend", players)
+    console.log("Send to backend", players);
   };
 
   const renderPlayerInputs = (numOfPlayers: number) => {
-    let playerInputs: React.ReactElement[]= []
+    let playerInputs: React.ReactElement[] = [];
     for (let i = 1; i <= numOfPlayers; i++) {
-        playerInputs.push(<PlayerInput placeholder={`Player ${i} name`} value={i} key={i}/>)
+      playerInputs.push(
+        <PlayerInput defaultValue={`Player ${i} name`} key={i} onClick={(e) => (e.target as HTMLInputElement).select()} />
+      );
     }
-    return playerInputs
+    return playerInputs;
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumOfPlayers(parseInt(event.target.value));
-    renderPlayerInputs(parseInt(event.target.value))
+    renderPlayerInputs(parseInt(event.target.value));
   };
 
   const handleStartGame = () => {
-    submitPlayerDetails()
+    submitPlayerDetails();
     setIsGameStarted(true);
   };
 
@@ -126,7 +138,9 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
               <PlayerNumberButton src="icons/4-players.svg" />
             </label>
           </PlayerNumberWrapper>
-          {numOfPlayers > 0 ? renderPlayerInputs(numOfPlayers) : null}
+          <NameInputWrapper>
+            {numOfPlayers > 0 ? renderPlayerInputs(numOfPlayers) : null}
+          </NameInputWrapper>
           <StartButton onClick={handleStartGame}>Start</StartButton>
         </PlayerSelectionWrapper>
       )}
