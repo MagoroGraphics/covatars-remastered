@@ -60,6 +60,7 @@ const MainContainer = () => {
             <CovatarsLogo src="icons/covatars-logo.svg" />
           </>
         )}
+        {isGameStarted && <ScoreboardButton onClick={() => setIsGameStarted(false)}>Back to homepage</ScoreboardButton>}
         <InstructionsButtonStyled onClick={() => toggleModal("instructions")}>
           <img src="icons/instructions_icon.svg" width="45px" />
           Instructions
