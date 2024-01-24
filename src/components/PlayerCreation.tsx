@@ -75,10 +75,17 @@ const NameInputWrapper = styled.div`
   flex-direction: column;
 `;
 
+const ErrorMessage = styled.p`
+  font-size: 2rem;
+  color: #ffffff;
+  margin: 0px;
+`
+
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false)
 
   const submitPlayerDetails = (): void => {
     console.log("Send to backend", players);
@@ -100,8 +107,13 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   };
 
   const handleStartGame = () => {
+    if(players.length < numOfPlayers) {
+      setErrorMessage(true)
+      return
+    };
+    setErrorMessage(false)
     submitPlayerDetails();
-    setIsGameStarted(true);
+    setIsGameStarted(true)
   };
 
   return (
@@ -109,6 +121,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
       {step === "PlayerNumberInput" && (
         <PlayerSelectionWrapper>
           <h2>How many players?</h2>
+          {errorMessage && <ErrorMessage>Write the names of the players</ErrorMessage>}
           <PlayerNumberWrapper onSubmit={submitPlayerDetails}>
             <label>
               <input
