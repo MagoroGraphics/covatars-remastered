@@ -1,6 +1,7 @@
 import assert from "assert";
 import React, { SetStateAction, useState, useReducer } from "react";
 import styled from "styled-components";
+import { Card } from "../types/CardType";
 
 //Create a state with a players object
 //Change players state from array of strings to array of player objects using interface
