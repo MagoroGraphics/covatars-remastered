@@ -1,4 +1,5 @@
-import React, { SetStateAction, useState } from "react";
+import assert from "assert";
+import React, { SetStateAction, useState, useReducer } from "react";
 import styled from "styled-components";
 
 //Create a state with a players object
@@ -9,6 +10,7 @@ interface PlayerCreationProps {
   setIsGameStarted: React.Dispatch<SetStateAction<boolean>>;
 }
 
+//#region Styles
 const MainWrapper = styled.div`
   width: 100%;
 `;
@@ -81,11 +83,24 @@ const ErrorMessage = styled.p`
   margin: 0px;
 `
 
+//#endregion
+
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<boolean>(false)
+
+  const initialState = {}
+  const reducer = () => {
+
+  }
+
+  const addPlayerNames = () => {
+    
+  }
+
+  const [playerNames, dispatch] = useReducer<any>(reducer, initialState)
 
   const submitPlayerDetails = (): void => {
     console.log("Send to backend", players);

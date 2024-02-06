@@ -6,6 +6,7 @@ import Instructions from "../components/Instructions";
 import styled from "styled-components";
 import Scoreboard from "../components/Scoreboard";
 
+//#region Styles
 const InstructionsButtonStyled = styled.button`
   color: yellow;
   height: auto;
@@ -41,6 +42,8 @@ const ScoreboardButton = styled.button`
 const CovatarsLogo = styled.img`
   max-width: 50vw;
 `;
+
+//#endregion
 
 const MainContainer = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
