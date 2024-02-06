@@ -100,6 +100,14 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     
   }
 
+  const getAllCards = () => {
+    fetch('/cards')
+    .then(res => {
+      return res
+    })
+    .then(data => console.log(data))
+  }
+
   const [playerNames, dispatch] = useReducer<any>(reducer, initialState)
 
   const submitPlayerDetails = (): void => {
