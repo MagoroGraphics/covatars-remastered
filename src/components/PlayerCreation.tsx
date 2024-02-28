@@ -131,12 +131,12 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   };
 
   const handleStartGame = () => {
-    if(players.length < numOfPlayers) {
-      setErrorMessage(true)
-      return
-    };
-    setErrorMessage(false)
-    submitPlayerDetails();
+    // if(players.length < numOfPlayers) {
+    //   setErrorMessage(true)
+    //   return
+    // };
+    // setErrorMessage(false)
+    // submitPlayerDetails();
     setIsGameStarted(true)
   };
 

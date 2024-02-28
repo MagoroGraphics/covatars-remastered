@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState } from "react";
 import styled from "styled-components";
 
 const PlayerHand = styled.div`
@@ -12,9 +12,18 @@ const PlayerHand = styled.div`
 `
 
 const Game = () => {
+
+  const [hand, setHand] = useState({})
+
+  const handleClick = async () => {
+    const response = await fetch('/draw-cards')
+    const cards = await response.json()
+  }
+  
   return (
     <>
       <PlayerHand/>
+      <button onClick={() =>handleClick()}>Get Cards</button>
     </>
   );
 };
