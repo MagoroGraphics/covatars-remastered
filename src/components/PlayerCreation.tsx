@@ -1,11 +1,8 @@
 import assert from "assert";
-import React, { SetStateAction, useState, useReducer } from "react";
+import React, { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { Card } from "../types/CardType";
-
-//Create a state with a players object
-//Change players state from array of strings to array of player objects using interface
-//Post players to database
+import { Player } from "../types/PlayerType";
 
 interface PlayerCreationProps {
   setIsGameStarted: React.Dispatch<SetStateAction<boolean>>;
@@ -89,7 +86,7 @@ const ErrorMessage = styled.p`
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
-  const [players, setPlayers] = useState<string[]>([]);
+  const [players, setPlayers] = useState<Player[]>();
   const [errorMessage, setErrorMessage] = useState<boolean>(false)
 
   const initialState = {}
@@ -109,34 +106,73 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     .then(data => console.log(data))
   }
 
-  const [playerNames, dispatch] = useReducer<any>(reducer, initialState)
-
   const submitPlayerDetails = (): void => {
     console.log("Send to backend", players);
   };
+
+  const registerPlayers = (name : string, playerNum : number) => {
+    const player : Player = {
+      id: undefined,
+      playerNum: playerNum,
+      name: name,
+      score: 0,
+      isTurn: false,
+      hand: []
+    }
+  }
 
   const renderPlayerInputs = (numOfPlayers: number) => {
     let playerInputs: React.ReactElement[] = [];
     for (let i = 1; i <= numOfPlayers; i++) {
       playerInputs.push(
-        <PlayerInput defaultValue={`Player ${i} name`} key={i} onClick={(e) => (e.target as HTMLInputElement).select()} />
+        <PlayerInput defaultValue={`Player ${i} name`} key={i} />
       );
     }
-    return playerInputs;
+    return playerInputs
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumOfPlayers(parseInt(event.target.value));
-    renderPlayerInputs(parseInt(event.target.value));
+  const setupEmptyPlayers = (numOfPlayers : number) => {
+    let playerList : Player[] = []
+    const playerSchema : Player = {
+      id: undefined,
+      playerNum: 0,
+      name: "",
+      score: 0,
+      isTurn: false,
+      hand: []
+    }
+
+    for(let i = 0; i < numOfPlayers; i++){
+      playerSchema.playerNum = i
+      playerList.push(playerSchema)
+    }
+
+    setPlayers(playerList)
+  }
+
+  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const numOfPlayers = parseInt(event.target.value)
+    setNumOfPlayers(numOfPlayers);
+    setupEmptyPlayers(numOfPlayers)
+    renderPlayerInputs(numOfPlayers);
   };
 
   const handleStartGame = () => {
-    // if(players.length < numOfPlayers) {
-    //   setErrorMessage(true)
-    //   return
-    // };
-    // setErrorMessage(false)
-    // submitPlayerDetails();
+    console.log(players?.length, numOfPlayers)
+    let playerNames : string[] = []
+    players?.forEach((player) => {
+      playerNames.push(player.name)
+    })
+
+    const nameNotEmpty = (currentValue : string) => currentValue !== ""
+    const areAllNamesPresent = playerNames.every(nameNotEmpty)
+
+    if(!areAllNamesPresent) {
+      setErrorMessage(true)
+      return
+    };
+    setErrorMessage(false)
+    submitPlayerDetails();
     setIsGameStarted(true)
   };
 
@@ -152,7 +188,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={2}
-                onChange={handleInputChange}
+                onChange={handleSelect}
               />
               <PlayerNumberButton src="icons/2-players.svg" />
             </label>
@@ -161,7 +197,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={3}
-                onChange={handleInputChange}
+                onChange={handleSelect}
               />
               <PlayerNumberButton src="icons/3-players.svg" />
             </label>
@@ -170,7 +206,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={4}
-                onChange={handleInputChange}
+                onChange={handleSelect}
               />
               <PlayerNumberButton src="icons/4-players.svg" />
             </label>
