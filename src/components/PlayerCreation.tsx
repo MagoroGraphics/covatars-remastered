@@ -1,5 +1,5 @@
 import assert from "assert";
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useState, useReducer } from "react";
 import styled from "styled-components";
 import { Card } from "../types/CardType";
 import { Player } from "../types/PlayerType";
@@ -89,10 +89,22 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [players, setPlayers] = useState<Player[]>();
   const [errorMessage, setErrorMessage] = useState<boolean>(false)
 
-  const initialState = {}
-  const reducer = () => {
+  const registerPlayers = (name : string, playerNum : number) => {
+    const player : Player = {
+      id: undefined,
+      playerNum: playerNum,
+      name: name,
+      score: 0,
+      isTurn: false,
+      hand: []
+    }
+  }
+
+  const reducer = (state, action) => {
 
   }
+
+  const [state, dispatch] = useReducer(reducer, {players: []})
 
   const addPlayerNames = () => {
     
@@ -110,22 +122,13 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     console.log("Send to backend", players);
   };
 
-  const registerPlayers = (name : string, playerNum : number) => {
-    const player : Player = {
-      id: undefined,
-      playerNum: playerNum,
-      name: name,
-      score: 0,
-      isTurn: false,
-      hand: []
-    }
-  }
+
 
   const renderPlayerInputs = (numOfPlayers: number) => {
     let playerInputs: React.ReactElement[] = [];
     for (let i = 1; i <= numOfPlayers; i++) {
       playerInputs.push(
-        <PlayerInput defaultValue={`Player ${i} name`} key={i} />
+        <PlayerInput defaultValue={`Player ${i} name`} key={i} required />
       );
     }
     return playerInputs
