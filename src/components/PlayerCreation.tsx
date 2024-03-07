@@ -79,104 +79,110 @@ const ErrorMessage = styled.p`
   font-size: 2rem;
   color: #ffffff;
   margin: 0px;
-`
+`;
 
 //#endregion
 
 const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
-  const [players, setPlayers] = useState<Player[]>();
-  const [errorMessage, setErrorMessage] = useState<boolean>(false)
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const registerPlayers = (name : string, playerNum : number) => {
-    const player : Player = {
+  const registerPlayers = (name: string, playerNum: number) => {
+    const player: Player = {
       id: undefined,
       playerNum: playerNum,
       name: name,
       score: 0,
       isTurn: false,
-      hand: []
-    }
-  }
-
-  const reducer = (state, action) => {
-
-  }
-
-  const [state, dispatch] = useReducer(reducer, {players: []})
-
-  const addPlayerNames = () => {
-    
-  }
-
-  const getAllCards = () => {
-    fetch('/cards')
-    .then(res => {
-      return res
-    })
-    .then(data => console.log(data))
-  }
-
-  const submitPlayerDetails = (): void => {
-    console.log("Send to backend", players);
+      hand: [],
+    };
   };
 
+  // const getAllCards = () => {
+  //   fetch('/cards')
+  //   .then(res => {
+  //     return res
+  //   })
+  //   .then(data => console.log(data))
+  // }
 
-
-  const renderPlayerInputs = (numOfPlayers: number) => {
-    let playerInputs: React.ReactElement[] = [];
-    for (let i = 1; i <= numOfPlayers; i++) {
-      playerInputs.push(
-        <PlayerInput defaultValue={`Player ${i} name`} key={i} required />
-      );
-    }
-    return playerInputs
-  };
-
-  const setupEmptyPlayers = (numOfPlayers : number) => {
-    let playerList : Player[] = []
-    const playerSchema : Player = {
+  const setupEmptyPlayers = (numOfPlayers: number) => {
+    let playerList: Player[] = [];
+    const playerSchema: Player = {
       id: undefined,
       playerNum: 0,
       name: "",
       score: 0,
       isTurn: false,
-      hand: []
+      hand: [],
+    };
+
+    for (let i = 0; i < numOfPlayers; i++) {
+      playerSchema.playerNum = i;
+      playerList.push(playerSchema);
     }
 
-    for(let i = 0; i < numOfPlayers; i++){
-      playerSchema.playerNum = i
-      playerList.push(playerSchema)
-    }
+    setPlayers(playerList);
+  };
 
-    setPlayers(playerList)
-  }
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    if (players.length === 0) setupEmptyPlayers(numOfPlayers);
+    setPlayers((prevPlayers) => {
+      const updatedPlayers = [...prevPlayers];
+      updatedPlayers[index].name = event.target.value;
+      return updatedPlayers;
+    });
+  };
+
+  const submitPlayerDetails = (): void => {
+    console.log("Send to backend", players);
+  };
+
+  const renderPlayerInputs = (numOfPlayers: number) => {
+    let playerInputs: React.ReactElement[] = [];
+    for (let i = 1; i <= numOfPlayers; i++) {
+      playerInputs.push(
+        <PlayerInput
+          placeholder={`Player ${i} name`}
+          key={i}
+          required
+          onChange={(event) => handleChange(event, i - 1)}
+        />
+      );
+    }
+    return playerInputs;
+  };
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const numOfPlayers = parseInt(event.target.value)
+    const numOfPlayers = parseInt(event.target.value);
     setNumOfPlayers(numOfPlayers);
-    setupEmptyPlayers(numOfPlayers)
+    // setupEmptyPlayers(numOfPlayers);
     renderPlayerInputs(numOfPlayers);
   };
 
   const handleStartGame = () => {
-    console.log(players?.length, numOfPlayers)
-    let playerNames : string[] = []
+    console.log(players?.length, numOfPlayers);
+    console.log({ players });
+    let playerNames: string[] = [];
     players?.forEach((player) => {
-      playerNames.push(player.name)
-    })
+      playerNames.push(player.name);
+    });
 
-    const nameNotEmpty = (currentValue : string) => currentValue !== ""
-    const areAllNamesPresent = playerNames.every(nameNotEmpty)
+    const nameNotEmpty = (currentValue: string) => currentValue !== "";
+    const areAllNamesPresent = players.length === numOfPlayers;
 
-    if(!areAllNamesPresent) {
-      setErrorMessage(true)
-      return
-    };
-    setErrorMessage(false)
+    if (!areAllNamesPresent) {
+      setErrorMessage(true);
+      return;
+    }
+    setErrorMessage(false);
     submitPlayerDetails();
-    setIsGameStarted(true)
+    setIsGameStarted(true);
   };
 
   return (
@@ -184,7 +190,9 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
       {step === "PlayerNumberInput" && (
         <PlayerSelectionWrapper>
           <h2>How many players?</h2>
-          {errorMessage && <ErrorMessage>Write the names of the players</ErrorMessage>}
+          {errorMessage && (
+            <ErrorMessage>Write the names of the players</ErrorMessage>
+          )}
           <PlayerNumberWrapper onSubmit={submitPlayerDetails}>
             <label>
               <input
