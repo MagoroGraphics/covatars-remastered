@@ -102,7 +102,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     let playerList: Player[] = [];
 
     for (let i = 0; i < numOfPlayers; i++) {
-      let playerToAdd = {...playerSchema, playerNum: i}
+      let playerToAdd = {...playerSchema, playerNum: i + 1}
       playerList.push(playerToAdd);
     }
     setPlayers(playerList);
