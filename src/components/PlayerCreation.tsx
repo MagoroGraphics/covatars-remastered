@@ -88,42 +88,23 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [players, setPlayers] = useState<Player[]>([]);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
-
-  const registerPlayers = (name: string, playerNum: number) => {
-    const player: Player = {
-      id: undefined,
-      playerNum: playerNum,
-      name: name,
-      score: 0,
-      isTurn: false,
-      hand: [],
-    };
+  
+  const playerSchema: Player = {
+    id: undefined,
+    playerNum: 0,
+    name: "",
+    score: 0,
+    isTurn: false,
+    hand: [],
   };
-
-  // const getAllCards = () => {
-  //   fetch('/cards')
-  //   .then(res => {
-  //     return res
-  //   })
-  //   .then(data => console.log(data))
-  // }
 
   const setupEmptyPlayers = (numOfPlayers: number) => {
     let playerList: Player[] = [];
-    const playerSchema: Player = {
-      id: undefined,
-      playerNum: 0,
-      name: "",
-      score: 0,
-      isTurn: false,
-      hand: [],
-    };
 
     for (let i = 0; i < numOfPlayers; i++) {
-      playerSchema.playerNum = i;
-      playerList.push(playerSchema);
+      let playerToAdd = {...playerSchema, playerNum: i}
+      playerList.push(playerToAdd);
     }
-
     setPlayers(playerList);
   };
 
@@ -131,16 +112,11 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    if (players.length === 0) setupEmptyPlayers(numOfPlayers);
     setPlayers((prevPlayers) => {
       const updatedPlayers = [...prevPlayers];
       updatedPlayers[index].name = event.target.value;
       return updatedPlayers;
     });
-  };
-
-  const submitPlayerDetails = (): void => {
-    console.log("Send to backend", players);
   };
 
   const renderPlayerInputs = (numOfPlayers: number) => {
@@ -161,7 +137,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
   const handleSelectNumOfPlayers = (event: React.ChangeEvent<HTMLInputElement>) => {
     const numOfPlayers = parseInt(event.target.value);
     setNumOfPlayers(numOfPlayers);
-    // setupEmptyPlayers(numOfPlayers);
+    setupEmptyPlayers(numOfPlayers);
     renderPlayerInputs(numOfPlayers);
   };
 
@@ -181,7 +157,6 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
       return;
     }
     setErrorMessage(false);
-    submitPlayerDetails();
     setIsGameStarted(true);
   };
 
@@ -193,7 +168,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
           {errorMessage && (
             <ErrorMessage>Write the names of the players</ErrorMessage>
           )}
-          <PlayerNumberWrapper onSubmit={submitPlayerDetails}>
+          <PlayerNumberWrapper>
             <label>
               <input
                 type="radio"
