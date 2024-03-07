@@ -149,10 +149,9 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
       playerNames.push(player.name);
     });
 
-    const nameNotEmpty = (currentValue: string) => currentValue !== "";
-    const areAllNamesPresent = players.length === numOfPlayers;
+    const areAllNamesPresent = () => players.every(player => player.name !== "");
 
-    if (!areAllNamesPresent) {
+    if (!areAllNamesPresent()) {
       setErrorMessage(true);
       return;
     }
