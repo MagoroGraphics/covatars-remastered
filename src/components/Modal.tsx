@@ -5,7 +5,7 @@ interface ModalProps {
   toggleModal: (modal: string | null) => void;
   children: React.ReactNode;
 }
-
+//#region styles
 const CloseButton = styled.div`
   border-radius: 1cqb;
   font-weight: bold;
@@ -46,7 +46,9 @@ const ModalBox = styled.div`
   border-radius: 25px;
   padding: 50px;
   overflow-y: scroll;
+  scrollbar-width: none;
 `;
+//#endregion
 
 const Modal = ({ toggleModal, children }: ModalProps) => {
   return (
