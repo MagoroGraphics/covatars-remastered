@@ -98,6 +98,7 @@ const PlayerCreation = ({ setIsGameStarted, players, setPlayers }: PlayerCreatio
     score: 0,
     isTurn: false,
     hand: [],
+    board: []
   };
 
   const setupEmptyPlayers = (numOfPlayers: number) => {

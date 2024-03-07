@@ -7,4 +7,5 @@ export interface Player {
     score: number
     isTurn: boolean
     hand: Card[]
+    board: Card[]
 }
