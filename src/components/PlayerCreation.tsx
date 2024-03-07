@@ -5,7 +5,9 @@ import { Card } from "../types/CardType";
 import { Player } from "../types/PlayerType";
 
 interface PlayerCreationProps {
-  setIsGameStarted: React.Dispatch<SetStateAction<boolean>>;
+  setIsGameStarted: React.Dispatch<SetStateAction<boolean>>
+  players: Player[]
+  setPlayers: (newState: Player[] | ((prevState: Player[]) => Player[])) => void;
 }
 
 //#region Styles
@@ -83,10 +85,10 @@ const ErrorMessage = styled.p`
 
 //#endregion
 
-const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
+const PlayerCreation = ({ setIsGameStarted, players, setPlayers }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
-  const [players, setPlayers] = useState<Player[]>([]);
+ 
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   
   const playerSchema: Player = {

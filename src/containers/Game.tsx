@@ -1,5 +1,6 @@
 import React,{ useState } from "react";
 import styled from "styled-components";
+import { Player } from "../types/PlayerType";
 
 const PlayerHand = styled.div`
   height:20%;
@@ -11,7 +12,11 @@ const PlayerHand = styled.div`
   margin-right: auto;
 `
 
-const Game = () => {
+interface GameProps{
+  players: Player[]
+}
+
+const Game = ({players} : GameProps) => {
 
   const [hand, setHand] = useState({})
 
