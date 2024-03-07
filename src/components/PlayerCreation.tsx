@@ -158,7 +158,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
     return playerInputs;
   };
 
-  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectNumOfPlayers = (event: React.ChangeEvent<HTMLInputElement>) => {
     const numOfPlayers = parseInt(event.target.value);
     setNumOfPlayers(numOfPlayers);
     // setupEmptyPlayers(numOfPlayers);
@@ -199,7 +199,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={2}
-                onChange={handleSelect}
+                onChange={handleSelectNumOfPlayers}
               />
               <PlayerNumberButton src="icons/2-players.svg" />
             </label>
@@ -208,7 +208,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={3}
-                onChange={handleSelect}
+                onChange={handleSelectNumOfPlayers}
               />
               <PlayerNumberButton src="icons/3-players.svg" />
             </label>
@@ -217,7 +217,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={4}
-                onChange={handleSelect}
+                onChange={handleSelectNumOfPlayers}
               />
               <PlayerNumberButton src="icons/4-players.svg" />
             </label>
