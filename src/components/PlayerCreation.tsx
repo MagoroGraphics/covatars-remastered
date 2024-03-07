@@ -2,13 +2,12 @@ import assert from "assert";
 import React, { SetStateAction, useState, useReducer } from "react";
 import styled from "styled-components";
 import { Card } from "../types/CardType";
-
-//Create a state with a players object
-//Change players state from array of strings to array of player objects using interface
-//Post players to database
+import { Player } from "../types/PlayerType";
 
 interface PlayerCreationProps {
-  setIsGameStarted: React.Dispatch<SetStateAction<boolean>>;
+  setIsGameStarted: React.Dispatch<SetStateAction<boolean>>
+  players: Player[]
+  setPlayers: (newState: Player[] | ((prevState: Player[]) => Player[])) => void;
 }
 
 //#region Styles
@@ -82,62 +81,84 @@ const ErrorMessage = styled.p`
   font-size: 2rem;
   color: #ffffff;
   margin: 0px;
-`
+`;
 
 //#endregion
 
-const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
+const PlayerCreation = ({ setIsGameStarted, players, setPlayers }: PlayerCreationProps) => {
   const [step, setStep] = useState("PlayerNumberInput");
   const [numOfPlayers, setNumOfPlayers] = useState(0);
-  const [players, setPlayers] = useState<string[]>([]);
-  const [errorMessage, setErrorMessage] = useState<boolean>(false)
+ 
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  
+  const playerSchema: Player = {
+    id: undefined,
+    playerNum: 0,
+    name: "",
+    score: 0,
+    isTurn: false,
+    hand: [],
+  };
 
-  const initialState = {}
-  const reducer = () => {
+  const setupEmptyPlayers = (numOfPlayers: number) => {
+    let playerList: Player[] = [];
 
-  }
+    for (let i = 0; i < numOfPlayers; i++) {
+      let playerToAdd = {...playerSchema, playerNum: i + 1}
+      playerList.push(playerToAdd);
+    }
+    setPlayers(playerList);
+  };
 
-  const addPlayerNames = () => {
-    
-  }
-
-  const getAllCards = () => {
-    fetch('/cards')
-    .then(res => {
-      return res
-    })
-    .then(data => console.log(data))
-  }
-
-  const [playerNames, dispatch] = useReducer<any>(reducer, initialState)
-
-  const submitPlayerDetails = (): void => {
-    console.log("Send to backend", players);
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    setPlayers((prevPlayers) => {
+      const updatedPlayers = [...prevPlayers];
+      updatedPlayers[index].name = event.target.value;
+      return updatedPlayers;
+    });
   };
 
   const renderPlayerInputs = (numOfPlayers: number) => {
     let playerInputs: React.ReactElement[] = [];
     for (let i = 1; i <= numOfPlayers; i++) {
       playerInputs.push(
-        <PlayerInput defaultValue={`Player ${i} name`} key={i} onClick={(e) => (e.target as HTMLInputElement).select()} />
+        <PlayerInput
+          placeholder={`Player ${i} name`}
+          key={i}
+          required
+          onChange={(event) => handleChange(event, i - 1)}
+        />
       );
     }
     return playerInputs;
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumOfPlayers(parseInt(event.target.value));
-    renderPlayerInputs(parseInt(event.target.value));
+  const handleSelectNumOfPlayers = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const numOfPlayers = parseInt(event.target.value);
+    setNumOfPlayers(numOfPlayers);
+    setupEmptyPlayers(numOfPlayers);
+    renderPlayerInputs(numOfPlayers);
   };
 
   const handleStartGame = () => {
-    if(players.length < numOfPlayers) {
-      setErrorMessage(true)
-      return
-    };
-    setErrorMessage(false)
-    submitPlayerDetails();
-    setIsGameStarted(true)
+    console.log(players?.length, numOfPlayers);
+    console.log({ players });
+    let playerNames: string[] = [];
+    players?.forEach((player) => {
+      playerNames.push(player.name);
+    });
+
+    const areAllNamesPresent = () => players.every(player => player.name !== "");
+
+    if (!areAllNamesPresent()) {
+      setErrorMessage(true);
+      return;
+    }
+    setErrorMessage(false);
+    setIsGameStarted(true);
   };
 
   return (
@@ -145,14 +166,16 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
       {step === "PlayerNumberInput" && (
         <PlayerSelectionWrapper>
           <h2>How many players?</h2>
-          {errorMessage && <ErrorMessage>Write the names of the players</ErrorMessage>}
-          <PlayerNumberWrapper onSubmit={submitPlayerDetails}>
+          {errorMessage && (
+            <ErrorMessage>Write the names of the players</ErrorMessage>
+          )}
+          <PlayerNumberWrapper>
             <label>
               <input
                 type="radio"
                 name="numOfPlayers"
                 value={2}
-                onChange={handleInputChange}
+                onChange={handleSelectNumOfPlayers}
               />
               <PlayerNumberButton src="icons/2-players.svg" />
             </label>
@@ -161,7 +184,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={3}
-                onChange={handleInputChange}
+                onChange={handleSelectNumOfPlayers}
               />
               <PlayerNumberButton src="icons/3-players.svg" />
             </label>
@@ -170,7 +193,7 @@ const PlayerCreation = ({ setIsGameStarted }: PlayerCreationProps) => {
                 type="radio"
                 name="numOfPlayers"
                 value={4}
-                onChange={handleInputChange}
+                onChange={handleSelectNumOfPlayers}
               />
               <PlayerNumberButton src="icons/4-players.svg" />
             </label>
