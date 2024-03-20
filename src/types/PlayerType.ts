@@ -1,11 +1,11 @@
-import { Card } from "./CardType"
+import { ICard } from "./CardType"
 
-export interface Player {
+export interface IPlayer {
     id: number | undefined
     playerNum: number
     name: string
     score: number
     isTurn: boolean
-    hand: Card[]
-    board: Card[]
+    hand: ICard[]
+    board: ICard[]
 }

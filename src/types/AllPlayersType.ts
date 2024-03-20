@@ -1,5 +1,5 @@
-import { Player } from "./PlayerType";
+import { IPlayer } from "./PlayerType";
 
-export interface AllPlayers {
-    player:Player
+export interface IAllPlayers {
+    player: IPlayer
 }

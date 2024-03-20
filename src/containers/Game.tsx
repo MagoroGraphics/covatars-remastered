@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 import styled from "styled-components";
-import { Player } from "../types/PlayerType";
+import { IPlayer } from "../types/PlayerType";
 
 const PlayerHand = styled.div`
   height:20%;
@@ -12,11 +12,11 @@ const PlayerHand = styled.div`
   margin-right: auto;
 `
 
-interface GameProps{
-  players: Player[]
+interface IGameProps{
+  players: IPlayer[]
 }
 
-const Game = ({players} : GameProps) => {
+const Game = ({players} : IGameProps) => {
 
   const [hand, setHand] = useState({})
 

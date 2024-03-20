@@ -1,5 +1,5 @@
-import { Card } from "./CardType";
+import { ICard } from "./CardType";
 
-export interface Deck{
-    card:Card
+export interface IDeck{
+    card:ICard
 }

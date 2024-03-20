@@ -1,13 +1,13 @@
 import assert from "assert";
 import React, { SetStateAction, useState, useReducer } from "react";
 import styled from "styled-components";
-import { Card } from "../types/CardType";
-import { Player } from "../types/PlayerType";
+import { ICard } from "../types/CardType";
+import { IPlayer } from "../types/PlayerType";
 
 interface PlayerCreationProps {
   setIsGameStarted: React.Dispatch<SetStateAction<boolean>>
-  players: Player[]
-  setPlayers: (newState: Player[] | ((prevState: Player[]) => Player[])) => void;
+  players: IPlayer[]
+  setPlayers: (newState: IPlayer[] | ((prevState: IPlayer[]) => IPlayer[])) => void;
 }
 
 //#region Styles
@@ -91,7 +91,7 @@ const PlayerCreation = ({ setIsGameStarted, players, setPlayers }: PlayerCreatio
  
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   
-  const playerSchema: Player = {
+  const playerSchema: IPlayer = {
     id: undefined,
     playerNum: 0,
     name: "",
@@ -102,7 +102,7 @@ const PlayerCreation = ({ setIsGameStarted, players, setPlayers }: PlayerCreatio
   };
 
   const setupEmptyPlayers = (numOfPlayers: number) => {
-    let playerList: Player[] = [];
+    let playerList: IPlayer[] = [];
 
     for (let i = 0; i < numOfPlayers; i++) {
       let playerToAdd = {...playerSchema, playerNum: i + 1}

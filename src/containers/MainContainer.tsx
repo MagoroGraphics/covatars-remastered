@@ -5,7 +5,7 @@ import Game from "./Game";
 import Instructions from "../components/Instructions";
 import styled from "styled-components";
 import Scoreboard from "../components/Scoreboard";
-import { Player } from "../types/PlayerType";
+import { IPlayer } from "../types/PlayerType";
 
 //#region Styles
 const InstructionsButtonStyled = styled.button`
@@ -49,7 +49,7 @@ const CovatarsLogo = styled.img`
 const MainContainer = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<string | null>(null);
-  const [players, setPlayers] = useState<Player[]>([]);
+  const [players, setPlayers] = useState<IPlayer[]>([]);
 
   const toggleModal = (modal: string | null) => {
     modal ? setIsModalOpen(modal) : setIsModalOpen(null)

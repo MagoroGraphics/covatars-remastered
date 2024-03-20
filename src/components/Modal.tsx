@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-interface ModalProps {
+interface IModalProps {
   toggleModal: (modal: string | null) => void;
   children: React.ReactNode;
 }
@@ -50,7 +50,7 @@ const ModalBox = styled.div`
 `;
 //#endregion
 
-const Modal = ({ toggleModal, children }: ModalProps) => {
+const Modal = ({ toggleModal, children }: IModalProps) => {
   return (
     <>
       <ModalOverlay />

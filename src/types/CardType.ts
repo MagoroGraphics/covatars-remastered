@@ -1,4 +1,4 @@
-export interface Card{
+export interface ICard{
     color: string
     type:string
     value: number
